@@ -8,6 +8,7 @@ const SingleBook = (inputProp) => {
 
     
     const inputSingleBook = inputProp.inputProp;
+    const setActiveAsin = inputProp.setActiveAsin;
     const [isSelected, setIsSelected] = useState(false);
     const [showModal, setShowModal] = useState(false);
 
@@ -18,6 +19,7 @@ const SingleBook = (inputProp) => {
  
     const handleSelection = () => {
         setIsSelected(!isSelected)
+        setActiveAsin(inputSingleBook.asin)
     };
 
 

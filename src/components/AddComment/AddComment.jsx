@@ -22,6 +22,7 @@ const AddComment = (props) => {
     const handleShow = () => setShow(true);
 
     const addData = async () => {
+        props.commentUpdated(false)
         try{
             const url = "https://striveschool-api.herokuapp.com/api/comments";
             const body = {
@@ -49,7 +50,6 @@ const AddComment = (props) => {
         catch(err) {
             console.log("error: ", err.message);
             setError(true);
-            props.commentUpdated(false)
             alert("Something went wrong...");
         }
     }

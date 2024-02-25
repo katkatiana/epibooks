@@ -10,6 +10,7 @@ const CommentList = (props) => {
 
     const inputReviews = props.inputReviews;
     const commentDeleted = props.commentDeleted;
+    const commentUpdated = props.commentUpdated
 
     useEffect(() => {
         console.log("try: ", inputReviews)
@@ -30,7 +31,7 @@ const CommentList = (props) => {
             currentReviews ? 
             (
                 inputReviews.map(review => 
-                    <SingleComment key = {review._id} inputSingleReview = {review} commentDeletion = {commentDeleted}/>
+                    <SingleComment key = {review._id} inputSingleReview = {review} commentDeletion = {commentDeleted}  commentUpdated = {commentUpdated} />
                 )
             ) : 
             ("")

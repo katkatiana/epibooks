@@ -18,7 +18,8 @@ import { BookContext } from '../../contexts/BookContext';
  * checking that there was no error response and that the loading of data is over.
  * 
  */
-const AllTheBooks = ({booksCopy}) => {
+
+const AllTheBooks = ({ booksCopy, setActiveAsin }) => {
 
     const url = "https://epibooks.onrender.com/";
     const [booksToShow, setBooksToShow] = useState([]);
@@ -66,8 +67,7 @@ const AllTheBooks = ({booksCopy}) => {
     
 
     return (
-        <>
-            
+        <> 
             <Container>
                 {/* {
                     loading && (
@@ -89,12 +89,12 @@ const AllTheBooks = ({booksCopy}) => {
                     {
                             booksToShow.map(book =>  
                                 <Col key = {nanoid()} style={{display: 'flex'}}> 
-                                    <SingleBook inputProp = {book}/>
+                                    <SingleBook inputProp = {book} setActiveAsin = {setActiveAsin} />
                                 </Col>
                             )
                     }
                 </Row>
-
+                    
             </Container>
         </>
       );

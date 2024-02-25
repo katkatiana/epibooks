@@ -3,6 +3,7 @@ import MyNav from "./components/myNav/MyNav";
 import MyFooter from "./components/MyFooter/MyFooter";
 import Welcome from "./components/Welcome/Welcome";
 import AllTheBooks from "./components/AllTheBooks/AllTheBooks";
+import LatestRelease from "./components/LatestRelease/LatestRelease";
 import { BooksProvider, BookContext } from "./contexts/BookContext";
 
 const App = () => {
@@ -16,7 +17,6 @@ const App = () => {
     //this function generates a new array containing all matching elements
     const startSearch = (inputSearch) => {
       const booksResultArr = books.filter((elem) => elem.title.toLowerCase().includes(inputSearch.toLowerCase()));
-      
       setBooksCopy(booksResultArr);      
       //books = booksResultArr;
     }
@@ -53,7 +53,7 @@ const App = () => {
             <MyNav handleChange={handleChange} searchBook={searchBook} startSearch={startSearch}/>
             <MyFooter />
             <Welcome />
-            <AllTheBooks booksCopy = {booksCopy}/>
+            <LatestRelease booksCopy = {booksCopy} />
           </BooksProvider>
       </div>
     );

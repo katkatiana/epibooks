@@ -17,12 +17,13 @@ const SingleComment = (props) => {
 
     const currentReview = props.inputSingleReview;
     const commentDeleted = props.commentDeletion;
+    const commentUpdated = props.commentUpdated;
 
     const token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWFmNWY4ZWJkNWQxMjAwMTg5MGQzNDgiLCJpYXQiOjE3MDgwOTY5ODMsImV4cCI6MTcwOTMwNjU4M30.g4-d8cG1ohQMkhzsHdKKDKTNDRZqfypgBZC-VVrI98w";
     const url = "https://striveschool-api.herokuapp.com/api/comments/";
 
     const deleteComment = async () => {
-
+      commentDeleted(false)
         try {
             const res = await fetch(url + currentReview._id, {
               method: "DELETE",
@@ -40,7 +41,6 @@ const SingleComment = (props) => {
           } catch (err) {
             console.log(err.message);
             setError(true);
-            commentDeleted(false)
             alert("The request was not processed correctly.");
           }
 
@@ -51,15 +51,15 @@ const SingleComment = (props) => {
     }
 
     const modifyComment = async () => {
-  
+      commentUpdated(false)
         try {
             const putResponse = await fetch(url + currentReview._id, {
               method: "PUT",
               body: JSON.stringify({
                 "comment": formData.comment,
                 "rate": formData.rate,
-                "elementId": currentReview._id,
-                /* "author": currentReview.author, */
+                "elementId": currentReview.elementId,
+                "author": currentReview.author,
               }),
               headers: {
                 Authorization: token,
@@ -69,6 +69,8 @@ const SingleComment = (props) => {
             setLoading(false);
             setIsFetchCompleted(true);
             setError(false);
+            setIsEditing(false)
+            commentUpdated(true)
             alert("Your comment was succesfully updated")
             } 
            catch (err) {

@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import { useEffect, useState } from 'react';
 import "./singleBook.css"
 import CommentArea from '../CommentArea/CommentArea';
+import { Link } from 'react-router-dom';
 
 const SingleBook = (inputProp) => {
 
@@ -35,10 +36,12 @@ const SingleBook = (inputProp) => {
                         {inputSingleBook.title}
                     </Card.Title>
                     
-                    <CommentArea inputAsin = {inputSingleBook.asin}/>
                     <Card.Text>
                         {inputSingleBook.price} $
                     </Card.Text>
+                    <Link to = {`/book/${inputSingleBook.asin}`}>
+                        <Button>Book Details</Button>
+                    </Link>
                     <Button 
                         variant="primary"
                         onClick={handleSelection}>

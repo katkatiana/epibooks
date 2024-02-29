@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import * as icons from 'react-bootstrap-icons';
+//import * as icons from 'react-bootstrap-icons';
 
 const AddComment = (props) => {
 

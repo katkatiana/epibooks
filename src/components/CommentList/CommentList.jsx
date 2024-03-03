@@ -1,6 +1,6 @@
 import ListGroup from 'react-bootstrap/ListGroup';
 import SingleComment from '../SingleComment/SingleComment';
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 
@@ -10,7 +10,7 @@ const CommentList = (props) => {
 
     const inputReviews = props.inputReviews;
     const commentDeleted = props.commentDeleted;
-    const commentUpdated = props.commentUpdated
+    const commentUpdated = props.commentUpdated;
 
     useEffect(() => {
         console.log("try: ", inputReviews)
@@ -26,7 +26,7 @@ const CommentList = (props) => {
 
 
   return (
-    <ListGroup as="ol">
+    <ListGroup as = "ol">
         {
             currentReviews ? 
             (

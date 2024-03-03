@@ -13,11 +13,15 @@ const BooksProvider = ({ children }) => {
     const getBooks =  async () => {
       try {
         const response = await fetch('https://epibooks.onrender.com');
-        const data = await response.json();
-        setBooks(data.slice(0, 12));
-        setLoading(false)
-        setIsFetchCompleted(true)
-        setError(false)
+        if(response.ok) {
+          const data = await response.json();
+          setBooks(data.slice(0, 12));
+          setLoading(false)
+          setIsFetchCompleted(true)
+          setError(false)
+        } else {
+          throw new Error(response.status)
+        }
       } catch (er) {
         console.error('Error fetching books:', er);
         setError(true)

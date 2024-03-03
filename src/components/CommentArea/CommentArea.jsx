@@ -5,7 +5,7 @@ import AddComment from '../AddComment/AddComment';
 import CommentList from '../CommentList/CommentList';
 
 
-const token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWFmNWY4ZWJkNWQxMjAwMTg5MGQzNDgiLCJpYXQiOjE3MDgwOTY5ODMsImV4cCI6MTcwOTMwNjU4M30.g4-d8cG1ohQMkhzsHdKKDKTNDRZqfypgBZC-VVrI98w";
+const token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWFmNWY4ZWJkNWQxMjAwMTg5MGQzNDgiLCJpYXQiOjE3MDk0OTQzNzYsImV4cCI6MTcxMDcwMzk3Nn0.28ffhgAC1cIG7EHM78ueX5dMt6_REh3zOFs631xoCok";
 
 const CommentArea = (inputAsin) => {
 

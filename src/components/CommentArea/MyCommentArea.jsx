@@ -2,7 +2,7 @@ import { useState, useEffect, useParams } from 'react';
 import CommentList from '../CommentList/CommentList';
 import AddComment from '../AddComment/AddComment';
 
-const token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWFmNWY4ZWJkNWQxMjAwMTg5MGQzNDgiLCJpYXQiOjE3MDgwOTY5ODMsImV4cCI6MTcwOTMwNjU4M30.g4-d8cG1ohQMkhzsHdKKDKTNDRZqfypgBZC-VVrI98w";
+const token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWFmNWY4ZWJkNWQxMjAwMTg5MGQzNDgiLCJpYXQiOjE3MDk0OTQzNzYsImV4cCI6MTcxMDcwMzk3Nn0.28ffhgAC1cIG7EHM78ueX5dMt6_REh3zOFs631xoCok";
 
 const MyCommentArea = ({ inputAsin }) => {
 
@@ -22,13 +22,14 @@ const MyCommentArea = ({ inputAsin }) => {
                 "Content-Type": "application/json",
                 },
             });
-            const data = await response.json();
-            console.log(typeof data)
-            console.log("data: ", data)
-            setReviews(data)
-            console.log("reviews", reviews)
-            setLoading(false)
-            setIsFetchCompleted(true)
+            if(response.ok) {
+                const data = await response.json()
+                setReviews(data)
+                setLoading(false)
+                setIsFetchCompleted(true)
+            } else{
+                throw new Error(response.status)
+            }
         }
         catch(err) {
             console.log("error: ", err.message)

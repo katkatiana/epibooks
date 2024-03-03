@@ -1,7 +1,8 @@
 import { Button, ListGroup } from "react-bootstrap";
 import { Badge } from "react-bootstrap";
 import * as icons from 'react-bootstrap-icons';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { ThemeContext } from "../../contexts/ThemeContext";
 
 
 const SingleComment = (props) => {
@@ -14,12 +15,14 @@ const SingleComment = (props) => {
     const [formData, setFormData] = useState({});
     const [comment, setComment] = useState("");
     const [rate, setRate] = useState("");
+    const localThemeContext = useContext(ThemeContext);
+    const theme = localThemeContext.theme;
 
     const currentReview = props.inputSingleReview;
     const commentDeleted = props.commentDeletion;
     const commentUpdated = props.commentUpdated;
 
-    const token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWFmNWY4ZWJkNWQxMjAwMTg5MGQzNDgiLCJpYXQiOjE3MDgwOTY5ODMsImV4cCI6MTcwOTMwNjU4M30.g4-d8cG1ohQMkhzsHdKKDKTNDRZqfypgBZC-VVrI98w";
+    const token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWFmNWY4ZWJkNWQxMjAwMTg5MGQzNDgiLCJpYXQiOjE3MDk0OTQzNzYsImV4cCI6MTcxMDcwMzk3Nn0.28ffhgAC1cIG7EHM78ueX5dMt6_REh3zOFs631xoCok";
     const url = "https://striveschool-api.herokuapp.com/api/comments/";
 
     const deleteComment = async () => {
@@ -31,13 +34,16 @@ const SingleComment = (props) => {
                 Authorization: token,
               },
             });
-            console.log(res)
-            const data = await res.json();
-            setError(false)
-            setIsFetchCompleted(true)
-            setLoading(false)
-            commentDeleted(true)
-            alert("Comment was succesfully deleted")
+            if(res.ok) {
+              setError(false)
+              setIsFetchCompleted(true)
+              setLoading(false)
+              commentDeleted(true)
+              alert("Comment was succesfully deleted")
+            } else {
+              throw new Error(res.status)
+            }
+           
           } catch (err) {
             console.log(err.message);
             setError(true);
@@ -66,14 +72,17 @@ const SingleComment = (props) => {
                 "Content-Type": "application/json",
               },
             });
-            setLoading(false);
-            setIsFetchCompleted(true);
-            setError(false);
-            setIsEditing(false)
-            commentUpdated(true)
-            alert("Your comment was succesfully updated")
-            } 
-           catch (err) {
+            if(putResponse.ok) {
+              setLoading(false);
+              setIsFetchCompleted(true);
+              setError(false);
+              setIsEditing(false)
+              commentUpdated(true)
+              alert("Your comment was succesfully updated")
+            } else {
+              throw new Error(putResponse.status)
+            }
+          } catch (err) {
             alert("The request was not processed correctly. Please, try again")
             setError(true)
             console.log(err.message)
@@ -102,6 +111,7 @@ const SingleComment = (props) => {
         <ListGroup.Item
             as="li"
             className="d-flex justify-content-between align-items-start"
+            variant = {theme}
         >
           {
             isEditing ? 

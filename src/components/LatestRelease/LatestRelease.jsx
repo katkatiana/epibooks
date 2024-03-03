@@ -19,9 +19,6 @@ const LatestRelease = ({ booksCopy }) => {
                     <Col>
                         <AllTheBooks booksCopy = {booksCopy} setActiveAsin = {setActiveAsin} />
                     </Col>
-                    <Col>
-                        <MyCommentArea inputAsin = {currentAsin} />
-                    </Col>
                 </Row>
             </Container>
         </>

@@ -1,9 +1,10 @@
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import "./singleBook.css"
 import CommentArea from '../CommentArea/CommentArea';
 import { Link } from 'react-router-dom';
+import { ThemeContext } from '../../contexts/ThemeContext';
 
 const SingleBook = (inputProp) => {
 
@@ -12,6 +13,8 @@ const SingleBook = (inputProp) => {
     const setActiveAsin = inputProp.setActiveAsin;
     const [isSelected, setIsSelected] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    const localThemeContext = useContext(ThemeContext);
+    const theme = localThemeContext.theme;
 
 
     const handleShow = () => {
@@ -20,7 +23,6 @@ const SingleBook = (inputProp) => {
  
     const handleSelection = () => {
         setIsSelected(!isSelected)
-        setActiveAsin(inputSingleBook.asin)
     };
 
 
@@ -29,6 +31,9 @@ const SingleBook = (inputProp) => {
                 id = {inputSingleBook.asin} 
                 style = {{ width: '12rem', marginBlock: '10px' }} 
                 className = {isSelected ? "selected" : ''} 
+                bg={theme}
+                key={theme}
+                text={theme === 'light' ? 'dark' : 'white'}
                 >
                 <Card.Img className = "card-img" variant="top" src = {inputSingleBook.img} />
                 <Card.Body>

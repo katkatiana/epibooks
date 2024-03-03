@@ -1,12 +1,14 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import { ThemeContext } from '../../contexts/ThemeContext';
+import "./AddComment.css"
 //import * as icons from 'react-bootstrap-icons';
 
 const AddComment = (props) => {
 
-    const token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWFmNWY4ZWJkNWQxMjAwMTg5MGQzNDgiLCJpYXQiOjE3MDgwOTY5ODMsImV4cCI6MTcwOTMwNjU4M30.g4-d8cG1ohQMkhzsHdKKDKTNDRZqfypgBZC-VVrI98w";
+    const token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWFmNWY4ZWJkNWQxMjAwMTg5MGQzNDgiLCJpYXQiOjE3MDk0OTQzNzYsImV4cCI6MTcxMDcwMzk3Nn0.28ffhgAC1cIG7EHM78ueX5dMt6_REh3zOFs631xoCok";
 
     const [show, setShow] = useState(false);
     const [comment, setComment] = useState("");
@@ -16,7 +18,12 @@ const AddComment = (props) => {
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true);
     const [formData, setFormData] = useState({});
+    const [isRateValid, setIsRateValid] = useState(false);
+    const [isEmailValid, setIsEmailValid] = useState(false);
+    const [isCommentValid, setIsCommentValid] = useState(false);
     const elementId = props.inputAsin;
+    const localThemeContext = useContext(ThemeContext);
+    const theme = localThemeContext.theme;
     
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -39,15 +46,16 @@ const AddComment = (props) => {
                 "Content-Type": "application/json",
                 },
             });
-            console.log(response);
-            const data = await response.json();
-            setLoading(false);
-            setIsFetchCompleted(true);
-            setError(false);
-            props.commentUpdated(true)
-            alert("Your comment was successfully added");
-        }
-        catch(err) {
+            if(response.ok) {
+                setLoading(false);
+                setIsFetchCompleted(true);
+                setError(false);
+                props.commentUpdated(true)
+                alert("Your comment was successfully added");
+            } else {
+                throw new Error(response.status)
+            }
+        } catch(err) {
             console.log("error: ", err.message);
             setError(true);
             alert("Something went wrong...");
@@ -59,15 +67,58 @@ const AddComment = (props) => {
         ev.preventDefault();
         const {name, value} = ev.target;
         console.log("ev.target:", ev.target)
-        setFormData({
-            ...formData,
-            [name] : value 
-        })
+        
+        
+        if((name === "rate")){
+            if(value > 5){
+                //alert("Rate cannot be higher than 5.");
+                setIsRateValid(false);
+            } else if(value === null) {
+                //alert("Input cannot be empty");
+                setIsRateValid(false)
+            } else {
+                setIsRateValid(true)
+            }
+        }
+
+        if((name === "author")){
+            if(value === ""){
+                //alert("Input cannot be empty");
+                setIsEmailValid(false)
+            } else {
+                setIsEmailValid(true)
+            }
+        }
+
+        if((name === "comment")){
+            if(value === ""){
+                //alert("Input cannot be empty");
+                setIsCommentValid(false)
+            } else {
+                setIsCommentValid(true)
+            }
+        }
+
+        console.log("c", isCommentValid)
+        console.log("e",isEmailValid)
+        console.log("r",isRateValid)
+
+    
+        if(isEmailValid && isCommentValid && isRateValid){
+            setFormData({
+                ...formData,
+                [name] : value 
+            })
+        }
     }
 
     const handleSave = () => {
-        addData()
-        handleClose()
+        if(isEmailValid && isCommentValid && isRateValid){
+            addData()
+            handleClose()
+        } else {
+            alert("Check if any input has invalid value.")
+        }
     }
 
 
@@ -78,14 +129,14 @@ const AddComment = (props) => {
             Add comment
             </Button>
     
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose} data-bs-theme = {theme}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Your comment</Modal.Title>
+                    <Modal.Title className={theme === 'light' ? 'modal-text-dark' : 'modal-text-light'}>Your comment</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Email address</Form.Label>
+                        <Form.Label className={theme === 'light' ? 'modal-text-dark' : 'modal-text-light'}>Email address</Form.Label>
                         <Form.Control
                         type="email"
                         name = "author"
@@ -95,9 +146,9 @@ const AddComment = (props) => {
                         />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
-                        <Form.Label>Rating</Form.Label>
+                        <Form.Label className={theme === 'light' ? 'modal-text-dark' : 'modal-text-light'}>Rating</Form.Label>
                         <Form.Control
-                        type="text"
+                        type="number"
                         name = "rate"
                         placeholder="from 1 to 5"
                         onChange={handleOnChange}
@@ -107,8 +158,8 @@ const AddComment = (props) => {
                         className="mb-3"
                         controlId="exampleForm.ControlTextarea1"
                     >
-                        <Form.Label>Your comment here</Form.Label>
-                        <Form.Control 
+                        <Form.Label className={theme === 'light' ? 'modal-text-dark' : 'modal-text-light'}>Your comment here</Form.Label>
+                        <Form.Control
                         as="textarea" 
                         rows={3} 
                         name = "comment"

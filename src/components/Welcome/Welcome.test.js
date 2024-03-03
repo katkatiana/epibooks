@@ -7,7 +7,8 @@ import MyTitle from "../MyTitle/MyTitle";
 
 test("check if all parts of welcome components appear", () => {
     render(<Welcome />)
-    const istilldunno = screen.queryAllByTestId('welcome-component')
+
+    const istilldunno = screen.queryAllByAltText('welcome-component')
 
     expect(istilldunno).not.toBeEmptyDOMElement
 

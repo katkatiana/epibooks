@@ -36,7 +36,6 @@ const MainLayout = ({children}) => {
 
   return (
     <>
-        <BooksProvider>
             <MyNav 
                 handleChange = {handleChange} 
                 searchBook = {searchBook} 
@@ -46,7 +45,6 @@ const MainLayout = ({children}) => {
             <LatestRelease  booksCopy = {booksCopy} />
             {children}
             <MyFooter />
-        </BooksProvider>
     </>
   )
 }

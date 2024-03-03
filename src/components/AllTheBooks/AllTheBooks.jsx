@@ -6,7 +6,6 @@ import Button from 'react-bootstrap/Button';
 //import Card from 'react-bootstrap/Card';
 import { Spinner } from 'react-bootstrap';
 import { useState, useEffect, useContext } from 'react';
-import { nanoid } from 'nanoid';
 import SingleBook  from '../SingleBook/SingleBook';
 import { BookContext } from '../../contexts/BookContext'; 
 
@@ -88,7 +87,7 @@ const AllTheBooks = ({ booksCopy, setActiveAsin }) => {
                 <Row>
                     {
                             booksToShow.map(book =>  
-                                <Col key = {nanoid()} style={{display: 'flex'}}> 
+                                <Col key = {book.asin} style={{display: 'flex'}}> 
                                     <SingleBook inputProp = {book} setActiveAsin = {setActiveAsin} />
                                 </Col>
                             )

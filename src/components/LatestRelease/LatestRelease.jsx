@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import AllTheBooks from '../AllTheBooks/AllTheBooks';
-import MyCommentArea from '../CommentArea/MyCommentArea';
 import { Col, Container, Row } from 'react-bootstrap';
 
 

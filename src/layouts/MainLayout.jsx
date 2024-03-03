@@ -11,14 +11,14 @@ const MainLayout = ({children}) => {
 
     let books = useContext(BookContext);
     const [searchBook, setSearchBook] = useState("");
-    const [booksCopy, setBooksCopy] = useState([]);
+    const [bookStore, setBookStore] = useState(books);
 
 
     //this function generates a new array containing all matching elements
     const startSearch = (inputSearch) => {
       const booksResultArr = books.filter((elem) => elem.title.toLowerCase().includes(inputSearch.toLowerCase()));
-      setBooksCopy(booksResultArr);      
-      //books = booksResultArr;
+      setBookStore(booksResultArr);      
+      console.log("BooksResultArr:", booksResultArr)
     }
 
     const handleChange = (e) => { 
@@ -27,7 +27,7 @@ const MainLayout = ({children}) => {
           startSearch(e.target.value);
       } else {
           setSearchBook("");
-          setBooksCopy(books);
+          setBookStore(books);
       } 
     }
 
@@ -42,7 +42,7 @@ const MainLayout = ({children}) => {
                 startSearch = {startSearch} 
                 //debounceInputValue = {debounceInputValue}
             />
-            <LatestRelease  booksCopy = {booksCopy} />
+            <LatestRelease  bookStore = {bookStore} />
             {children}
             <MyFooter />
     </>

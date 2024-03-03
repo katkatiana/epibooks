@@ -14,12 +14,8 @@ const mockBooks = [
   ];
 
   const mockTheme = "light"
-  const mockToggle = () => {
-    
-  }
-  const mockSet = () => {
-    
-  }
+  const mockToggle = () => {}
+  const mockSet = () => {}
   
   describe('CardElement Component', () => {
         test('renders the correct number of cards based on the books data', () => {
@@ -27,7 +23,7 @@ const mockBooks = [
                 <ThemeContext.Provider value = {{mockTheme, mockToggle, mockSet}}>
                     <MemoryRouter>
                         <BookContext.Provider value={mockBooks}>
-                            <AllTheBooks booksCopy = {mockBooks} />
+                            <AllTheBooks bookStore = {mockBooks} />
                         </BookContext.Provider>
                     </MemoryRouter>
                 </ThemeContext.Provider>

@@ -18,25 +18,17 @@ import { BookContext } from '../../contexts/BookContext';
  * 
  */
 
-const AllTheBooks = ({ booksCopy, setActiveAsin }) => {
+const AllTheBooks = ({ bookStore, setActiveAsin }) => {
 
-    const url = "https://epibooks.onrender.com/";
     const [booksToShow, setBooksToShow] = useState([]);
     const [isFetchCompleted, setIsFetchCompleted] = useState(false);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(true);
-    const [searchBook, setSearchBook] = useState("");
-    //const [booksCopy, setBooksCopy] = useState([]);
-    let allBooks = useContext(BookContext);
 
     useEffect(() => {
-        console.log("Received Books:", booksCopy)
-        if(booksCopy.length > 0) {
-            setBooksToShow(booksCopy)
-        } else {
-            setBooksToShow(allBooks);
-        }
-    }, [booksCopy])
+        console.log("Received Books:", bookStore)
+        setBooksToShow(bookStore)
+    }, [bookStore])
 
 
     /* useEffect(() => {

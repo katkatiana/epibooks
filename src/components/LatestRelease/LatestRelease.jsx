@@ -3,7 +3,7 @@ import AllTheBooks from '../AllTheBooks/AllTheBooks';
 import { Col, Container, Row } from 'react-bootstrap';
 
 
-const LatestRelease = ({ booksCopy }) => {
+const LatestRelease = ({ bookStore }) => {
 
     const [currentAsin, setCurrentAsin] = useState("");
 
@@ -16,7 +16,7 @@ const LatestRelease = ({ booksCopy }) => {
             <Container>
                 <Row>
                     <Col>
-                        <AllTheBooks booksCopy = {booksCopy} setActiveAsin = {setActiveAsin} />
+                        <AllTheBooks bookStore = {bookStore} setActiveAsin = {setActiveAsin} />
                     </Col>
                 </Row>
             </Container>

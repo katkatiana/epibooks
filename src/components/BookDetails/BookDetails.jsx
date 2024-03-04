@@ -14,6 +14,7 @@ import { useParams } from 'react-router-dom';
 import { useContext } from 'react';
 import { BookContext } from '../../contexts/BookContext';
 import MyCommentArea from '../CommentArea/MyCommentArea';
+import "./BookDetails.css"
 
 /******** Internal Variables  ***************************************************/
 

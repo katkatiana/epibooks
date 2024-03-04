@@ -1,3 +1,14 @@
+# Project Title & Demo Link
+
+Epibooks
+
+You can access this site at ""
+
+# About the app
+
+This site allows the user to navigate through books fetched from an API, to check their prices and search if any titles match the research.
+It is also possible to access a more detailed page of the selected book in order to read comments about it and to add a personal one, modify it or delete it too, if needed.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

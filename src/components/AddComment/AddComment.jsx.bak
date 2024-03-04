@@ -1,86 +1,56 @@
-/**
- * @fileoverview AddComment.jsx
- * This component renders the elements needed to modify a comment.
- * @author Mariakatia Santangelo
- * @date   01-03-2024
- */
-
-/******** Import Section  *******************************************************/
-
 import { useState, useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { ThemeContext } from '../../contexts/ThemeContext';
 import "./AddComment.css"
-import { TOKEN, COMMENTS_URL } from '../../utils/Utils';
+//import * as icons from 'react-bootstrap-icons';
 
-/******** Internal Variables  ***************************************************/
+const AddComment = (props) => {
 
-/******** Component Definition  *************************************************/
-
-/**
- * SingleComment
- * This component renders modal containing text areas that can be used to input
- * a new comment.
- * @param {*} inputAsin the ASIN of the book to which we are posting a new comment.
- * @param {*} commentUpdated the callback to be called if comments get updated
- * @returns the instantiation of the modal component, along with the elements needed for
- * the update.
- */
-const AddComment = ({inputAsin, commentUpdated}) => {
-
+    const token = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWFmNWY4ZWJkNWQxMjAwMTg5MGQzNDgiLCJpYXQiOjE3MDk0OTQzNzYsImV4cCI6MTcxMDcwMzk3Nn0.28ffhgAC1cIG7EHM78ueX5dMt6_REh3zOFs631xoCok";
 
     const [show, setShow] = useState(false);
-
+    const [comment, setComment] = useState("");
+    const [rate, setRate] = useState("");
+    const [author, setAuthor] = useState("");
     const [isFetchCompleted, setIsFetchCompleted] = useState(false);
     const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [formData, setFormData] = useState({});
     const [isRateValid, setIsRateValid] = useState(false);
     const [isEmailValid, setIsEmailValid] = useState(false);
     const [isCommentValid, setIsCommentValid] = useState(false);
-    const elementId = inputAsin;
+    const elementId = props.inputAsin;
     const localThemeContext = useContext(ThemeContext);
     const theme = localThemeContext.theme;
     
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    /**
-     * addData
-     * This function performs a fetch operation against
-     * the configured API to post the new comment in the remote database.
-     * The function gets the inputs from the formData state.
-     * @param None
-     * @returns None
-     * On a successfull fetch, commentUpdated prop is called to notify
-     * the upper layers that a comment has been posted.
-     * If any kind of error occurs during the Fetch operation,
-     * an Exception is raised and the Error is signalled through
-     * the error internal state.
-     */
     const addData = async () => {
-        commentUpdated(false)
-        setIsFetchCompleted(false);
+        props.commentUpdated(false)
         try{
+            const url = "https://striveschool-api.herokuapp.com/api/comments";
             const body = {
                 "comment": formData.comment,
                 "rate": formData.rate,
                 "elementId": elementId,
                 "author": formData.author,
             }
-            const response = await fetch(COMMENTS_URL, {
+            const response = await fetch(url, {
                 method: "POST",
                 body : JSON.stringify(body),
                 headers: {
-                "Authorization": TOKEN,
+                "Authorization": token,
                 "Content-Type": "application/json",
                 },
             });
             if(response.ok) {
+                setLoading(false);
                 setIsFetchCompleted(true);
                 setError(false);
-                commentUpdated(true)
+                props.commentUpdated(true)
                 alert("Your comment was successfully added");
             } else {
                 throw new Error(response.status)
@@ -88,49 +58,51 @@ const AddComment = ({inputAsin, commentUpdated}) => {
         } catch(err) {
             console.log("error: ", err.message);
             setError(true);
-            setIsFetchCompleted(false);
-            alert("The request was not processed correctly. Please, try again.")
+            alert("Something went wrong...");
         }
     }
 
-    /**
-     * handleOnChange
-     * This function just collects all the input parameters and fills the formData
-     * accordingly, also checking their value for correctness.
-     * @param ev Event object, which can be inspected for target, value, etc.
-     * @returns None
-     */
+
     const handleOnChange = (ev) => {
         ev.preventDefault();
         const {name, value} = ev.target;
         console.log("ev.target:", ev.target)
         
-        /** Check rate, must be > 0 and < 5*/
+        
         if((name === "rate")){
             if(value > 5){
+                //alert("Rate cannot be higher than 5.");
                 setIsRateValid(false);
             } else if(value === null) {
+                //alert("Input cannot be empty");
                 setIsRateValid(false)
             } else {
                 setIsRateValid(true)
             }
         }
-        /** Check for empty value */
+
         if((name === "author")){
             if(value === ""){
+                //alert("Input cannot be empty");
                 setIsEmailValid(false)
             } else {
                 setIsEmailValid(true)
             }
         }
-        /** Check for empty value */
+
         if((name === "comment")){
             if(value === ""){
+                //alert("Input cannot be empty");
                 setIsCommentValid(false)
             } else {
                 setIsCommentValid(true)
             }
         }
+
+        console.log("c", isCommentValid)
+        console.log("e",isEmailValid)
+        console.log("r",isRateValid)
+
     
         if(isEmailValid && isCommentValid && isRateValid){
             setFormData({
@@ -140,13 +112,6 @@ const AddComment = ({inputAsin, commentUpdated}) => {
         }
     }
 
-  /**
-   * handleUpdate
-   * This function is triggered when the Save button is pressed.
-   * It starts the POST request if the required inputs are valid.
-   * @param None
-   * @returns None
-   */
     const handleSave = () => {
         if(isEmailValid && isCommentValid && isRateValid){
             addData()

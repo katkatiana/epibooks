@@ -44,16 +44,16 @@ const BookDetails = () => {
   return (
     <Container className='book-details-container'>
       <Row>
-        <Col>
-          <img src = {`${selectedBook.img}`} alt = "book-img" />
-          <h4>{`${selectedBook.title}`}</h4>
-          <p>{`${selectedBook.price}`} $</p>
-          <p>genre: {`${selectedBook.category}`}</p>
-        </Col>
-        <Col>
-          <MyCommentArea inputAsin = {asin}/>
-        </Col>
-      </Row>
+                    <Col>
+                      <img src = {`${selectedBook.img}`} alt = "book-img" />
+                      <h4>{`${selectedBook.title}`}</h4>
+                      <p>{`${selectedBook.price}`} $</p>
+                      <p>genre: {`${selectedBook.category}`}</p>
+                    </Col>
+                    <Col>
+                      <MyCommentArea inputAsin = {asin}/>
+                    </Col>
+                </Row>
     </Container>
   )
 }

@@ -60,7 +60,7 @@ const SingleBook = ({inputBook}) => {
                 id = {inputSingleBook.asin} 
                 style = {{ width: '12rem', marginBlock: '10px' }} 
                 className = {isSelected ? "selected" : ''} 
-                data-testid = 'card-test'
+                data-testid = 'card-test
                 bg={theme}
                 key={theme}
                 text={theme === LIGHT_THEME ? 'dark' : 'white'}
@@ -79,7 +79,7 @@ const SingleBook = ({inputBook}) => {
                     </Link>
                     <Button 
                         variant="primary"
-						data-testid = 'card-button-test'
+                        data-testid = 'card-button-test'
                         onClick={handleSelection}>
                             Select
                     </Button>

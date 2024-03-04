@@ -8,15 +8,6 @@
 /******** Import Section  *******************************************************/
 import MainLayout from "../layouts/MainLayout";
 
-/******** Internal Variables  ***************************************************/
-
-/******** Component Definition  *************************************************/
-
-/**
- * Homepage
- * This component renders the homepage of the application.
- * @returns the instantiation of the MainLayout component.
- */
 const Homepage = () => {
 
 

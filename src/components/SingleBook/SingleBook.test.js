@@ -21,7 +21,7 @@ describe("SingleBook component", () => {
             <ThemeContext.Provider value = {{mockTheme, mockToggle, mockSet}}>
                     <MemoryRouter>
                         <BookContext.Provider value={mockBooks}>
-                                <SingleBook inputProp = {mockBooks[0]}/>
+                                <SingleBook inputBook = {mockBooks[0]}/>
                         </BookContext.Provider>
                     </MemoryRouter>
                 </ThemeContext.Provider>

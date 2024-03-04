@@ -32,7 +32,7 @@ import { getDeleteCommentsURL, getUpdateCommentsURL } from "../../utils/Utils";
  * @returns the instantiation of SingleComment component, for each object contained
  * in the inputReviews array.
  */
-const SingleComment = ({inputSingleReview, commentDeletion, commentUpdated}) => {
+const SingleComment = ({key, inputSingleReview, commentDeletion, commentUpdated}) => {
 
     //const [toBeRegistered, setToBeRegistered] = useState(false);
     const [isFetchCompleted, setIsFetchCompleted] = useState(false);
@@ -50,7 +50,7 @@ const SingleComment = ({inputSingleReview, commentDeletion, commentUpdated}) => 
 
     const currentReview = inputSingleReview;
     const commentDeleted = commentDeletion;
-    const commentUpdate = commentUpdated;
+    const commentUpdated = commentUpdated;
 
     /**
      * handleIsEditing
@@ -118,7 +118,7 @@ const SingleComment = ({inputSingleReview, commentDeletion, commentUpdated}) => 
      * the error internal state.
      */
     const modifyComment = async () => {
-      commentUpdate(false)
+      commentUpdated(false)
       setIsFetchCompleted(false);
         try {
             const putResponse = await fetch(getUpdateCommentsURL(currentReview._id), {
@@ -130,7 +130,7 @@ const SingleComment = ({inputSingleReview, commentDeletion, commentUpdated}) => 
                 "author": currentReview.author,
               }),
               headers: {
-                Authorization: TOKEN,
+                Authorization: token,
                 "Content-Type": "application/json",
               },
             });
@@ -138,7 +138,7 @@ const SingleComment = ({inputSingleReview, commentDeletion, commentUpdated}) => 
               setIsFetchCompleted(true);
               setError(false);
               setIsEditing(false)
-              commentUpdate(true)
+              commentUpdated(true)
               alert("Your comment was succesSfully updated.")
             } else {
               throw new Error(putResponse.status)
@@ -250,7 +250,7 @@ const SingleComment = ({inputSingleReview, commentDeletion, commentUpdated}) => 
                       onChange={handleOnChange}
                     />                   
                 </Badge>
-                <button onClick={handleUpdate}>Save changes</button>
+                <button onClick={modifyComment}>Save changes</button>
               </>
             ) : (
               <>

@@ -16,13 +16,13 @@ const MyAlert = () => {
     }
   
     return (
-      <div>
-          <p>
-            This message will disappear in {counter}s
-          </p>
-          <h3>
+      <div data-testid = 'welcome-component'>
+          <h3 className="d-flex align-items-center justify-content-center">
             Welcome in Epibooks!
           </h3>
+          <p className="d-flex align-items-center justify-content-center">
+            This message will disappear in {counter}s
+          </p>
       </div>
     ) 
 }

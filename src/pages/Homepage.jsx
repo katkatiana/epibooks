@@ -7,6 +7,7 @@
 
 /******** Import Section  *******************************************************/
 import MainLayout from "../layouts/MainLayout";
+import Welcome from "../components/Welcome/Welcome"
 
 /******** Internal Variables  ***************************************************/
 
@@ -21,7 +22,10 @@ const Homepage = () => {
 
 
     return (
+            <>
+            <Welcome/>
             <MainLayout />
+            </>
     )
 }
 

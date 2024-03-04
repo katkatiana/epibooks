@@ -100,27 +100,36 @@ const AddComment = ({inputAsin, commentUpdated}) => {
      * @param ev Event object, which can be inspected for target, value, etc.
      * @returns None
      */
-    const handleOnChange = (ev) => {
+    const handleOnChange = async (ev) => {
         ev.preventDefault();
         const {name, value} = ev.target;
-        console.log("ev.target:", ev.target)
         
         /** Check rate, must be > 0 and < 5*/
         if((name === "rate")){
+            console.log(value)
             if(value > 5){
                 setIsRateValid(false);
             } else if(value === null) {
                 setIsRateValid(false)
             } else {
                 setIsRateValid(true)
+                setFormData({
+                    ...formData,
+                    [name] : value 
+                })
             }
         }
         /** Check for empty value */
         if((name === "author")){
+            console.log(value)
             if(value === ""){
                 setIsEmailValid(false)
             } else {
                 setIsEmailValid(true)
+                setFormData({
+                    ...formData,
+                    [name] : value 
+                })
             }
         }
         /** Check for empty value */
@@ -129,14 +138,11 @@ const AddComment = ({inputAsin, commentUpdated}) => {
                 setIsCommentValid(false)
             } else {
                 setIsCommentValid(true)
+                setFormData({
+                    ...formData,
+                    [name] : value 
+                })
             }
-        }
-    
-        if(isEmailValid && isCommentValid && isRateValid){
-            setFormData({
-                ...formData,
-                [name] : value 
-            })
         }
     }
 

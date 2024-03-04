@@ -31,6 +31,7 @@ const SingleBook = (inputProp) => {
                 id = {inputSingleBook.asin} 
                 style = {{ width: '12rem', marginBlock: '10px' }} 
                 className = {isSelected ? "selected" : ''} 
+                data-testid = 'card-test'
                 bg={theme}
                 key={theme}
                 text={theme === 'light' ? 'dark' : 'white'}
@@ -45,10 +46,11 @@ const SingleBook = (inputProp) => {
                         {inputSingleBook.price} $
                     </Card.Text>
                     <Link to = {`/book/${inputSingleBook.asin}`}>
-                        <Button>Book Details</Button>
+                        <Button data-testid="btn-link">Book Details</Button>
                     </Link>
                     <Button 
                         variant="primary"
+                        data-testid = 'card-button-test'
                         onClick={handleSelection}>
                             Select
                     </Button>

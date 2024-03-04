@@ -112,6 +112,7 @@ const SingleComment = (props) => {
             as="li"
             className="d-flex justify-content-between align-items-start"
             variant = {theme}
+            data-testid = 'single-comment'
         >
           {
             isEditing ? 

@@ -35,7 +35,7 @@ const MainLayout = ({children}) => {
 
 
   return (
-    <>
+    <div data-testid = 'main'>
             <MyNav 
                 handleChange = {handleChange} 
                 searchBook = {searchBook} 
@@ -45,7 +45,7 @@ const MainLayout = ({children}) => {
             <LatestRelease  bookStore = {bookStore} />
             {children}
             <MyFooter />
-    </>
+    </div>
   )
 }
 

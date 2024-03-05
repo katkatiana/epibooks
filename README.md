@@ -2,7 +2,7 @@
 
 Epibooks
 
-You can access this site ["here"](https://65e61125c36efd0b654b5ece--epibooks-ms.netlify.app/)
+You can access this site [here](https://65e61125c36efd0b654b5ece--epibooks-ms.netlify.app/)
 
 # About the app
 
